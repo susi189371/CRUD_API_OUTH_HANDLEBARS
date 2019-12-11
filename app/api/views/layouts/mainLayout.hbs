@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Node.js express mongodb</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.6/css/mdb.min.css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.datatables.net/responsive/1.0.4/js/dataTables.responsive.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/1.0.4/css/dataTables.responsive.css">
+
+    <style type="text/css">
+        .bg-dark {
+            background-color: #343a40 !important;
+            border-radius: 0;
+        }
+
+        #wrapper {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+        }
+
+        #wrapper #content-wrapper {
+            overflow-x: hidden;
+            width: 100%;
+            padding-top: 1rem;
+            padding-bottom: 80px;
+        }
+
+        @media (min-width: 768px) {
+            .navbar-nav .form-inline .input-group {
+                width: auto;
+            }
+        }
+
+        .navbar {
+            position: relative;
+            min-height: 50px;
+            margin-bottom: 0px;
+            border: 1px solid transparent;
+        }
+
+        .sidebar {
+            width: 90px !important;
+            background-color: #212529;
+            min-height: calc(100vh - 56px);
+        }
+
+        .sidebar .nav-item:last-child {
+            margin-bottom: 1rem;
+        }
+
+        .sidebar .nav-item .nav-link {
+            text-align: center;
+            padding: 0.75rem 1rem;
+            width: 90px;
+        }
+
+        .sidebar .nav-item .nav-link span {
+            font-size: 0.65rem;
+            display: block;
+        }
+
+        .sidebar .nav-item .dropdown-menu {
+            position: absolute !important;
+            -webkit-transform: none !important;
+            transform: none !important;
+            left: calc(90px + 0.5rem) !important;
+            margin: 0;
+        }
+
+        .sidebar .nav-item .dropdown-menu.dropup {
+            bottom: 0;
+            top: auto !important;
+        }
+
+        .sidebar .nav-item.dropdown .dropdown-toggle::after {
+            display: none;
+        }
+
+        .sidebar .nav-item .nav-link {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .sidebar .nav-item .nav-link:active,
+        .sidebar .nav-item .nav-link:focus,
+        .sidebar .nav-item .nav-link:hover {
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .sidebar.toggled {
+            width: 0 !important;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .sidebar {
+                width: 225px !important;
+            }
+
+            .sidebar .nav-item .nav-link {
+                display: block;
+                width: 100%;
+                text-align: left;
+                padding: 1rem;
+                width: 225px;
+                font-size: 16px;
+            }
+
+            .sidebar .nav-item .nav-link span {
+                font-size: 16px;
+                display: inline;
+            }
+
+            .sidebar .nav-item .dropdown-menu {
+                position: static !important;
+                margin: 0 1rem;
+                top: 0;
+            }
+
+            .sidebar .nav-item.dropdown .dropdown-toggle::after {
+                display: block;
+            }
+
+            .sidebar.toggled {
+                overflow: visible;
+                width: 90px !important;
+            }
+
+            .sidebar.toggled .nav-item:last-child {
+                margin-bottom: 1rem;
+            }
+
+            .sidebar.toggled .nav-item .nav-link {
+                text-align: center;
+                padding: 0.75rem 1rem;
+                width: 90px;
+            }
+
+            .sidebar.toggled .nav-item .nav-link span {
+                font-size: 0.65rem;
+                display: block;
+            }
+
+            .sidebar.toggled .nav-item .dropdown-menu {
+                position: absolute !important;
+                -webkit-transform: none !important;
+                transform: none !important;
+                left: calc(90px + 0.5rem) !important;
+                margin: 0;
+            }
+
+            .sidebar.toggled .nav-item .dropdown-menu.dropup {
+                bottom: 0;
+                top: auto !important;
+            }
+
+            .sidebar.toggled .nav-item.dropdown .dropdown-toggle::after {
+                display: none;
+            }
+        }
+
+        body {
+            font-size: 140%;
+        }
+
+        h2 {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        table caption {
+            padding: .5em 0;
+        }
+
+        table.dataTable th,
+        table.dataTable td {
+            white-space: nowrap;
+        }
+
+        .p {
+            text-align: center;
+            padding-top: 140px;
+            font-size: 18px;
+        }
+
+        .form-inline {
+            display: block !important;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body class="bg-info">
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+        <a class="navbar-brand mr-1" href="index.html">ADMIN API </a>
+        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+            <i class="fa fa-bars" style="color: white; font-size: 18px;"></i>
+        </button>
+    </nav>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="sidebar navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/employee">
+                    <i class="fa fa-fw fa-user"></i>
+                    <span>Employee</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user">
+                    <i class="fa fa-fw fa-users"></i>
+                    <span>User</span></a>
+            </li>
+        </ul>
+        <div id="content-wrapper">
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10 m-auto"
+                        style="background-color:#fff;margin-top:25px !important;padding:20px;height:570px">
+                        {{{body}}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $("#sidebarToggle").on('click', function (e) {
+        e.preventDefault();
+        $("body").toggleClass("sidebar-toggled");
+        $(".sidebar").toggleClass("toggled");
+    });
+</script>
+
+</html>
