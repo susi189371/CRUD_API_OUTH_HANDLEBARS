@@ -14,15 +14,12 @@ var employeeSchema = new mongoose.Schema({
     },
     city: {
         type: String
-    },
-   
+    }
 },
-{
-    timestamps: true,
-}
+    {
+        timestamps: true,
+    }
 );
-
-
 
 employeeSchema.path('email').validate((val) => {
     emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

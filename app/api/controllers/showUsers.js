@@ -87,8 +87,6 @@ function handleValidationError(err, body) {
 router.get('/:id', (req, res, next) => {
     User.findById(req.params.id, (err, doc) => {
         if (!err) {
-            console.log(doc, 'doc')
-
             res.render("user/addOrEditUser", {
                 viewTitle: "Update User",
                 user: {

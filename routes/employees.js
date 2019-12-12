@@ -4,6 +4,7 @@ const employeeController = require('../app/api/controllers/employees');
 router.get('/', employeeController.getAll);
 router.post('/', employeeController.create);
 router.get('/:employeeId', employeeController.getById);
+router.get('/data/:fullName', employeeController.getByParams);
 router.put('/:employeeId', employeeController.updateById);
 router.delete('/:employeeId', employeeController.deleteById);
 module.exports = router;
